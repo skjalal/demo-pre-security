@@ -2,20 +2,19 @@ package com.example.config;
 
 import com.example.domain.User;
 import jakarta.persistence.EntityManager;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.PermissionEvaluator;
+import org.springframework.security.access.expression.DenyAllPermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionTemplate;
 
 @Slf4j
 @RequiredArgsConstructor
-public class ApiPermissionEvaluator implements PermissionEvaluator {
+public class ApiPermissionEvaluator extends DenyAllPermissionEvaluator {
 
   private final EntityManager entityManager;
   private final TransactionTemplate transactionTemplate;
@@ -23,12 +22,6 @@ public class ApiPermissionEvaluator implements PermissionEvaluator {
   @Override
   public boolean hasPermission(
       Authentication authentication, Object targetType, Object permission) {
-    return hasPrivilege(authentication, targetType, permission);
-  }
-
-  @Override
-  public boolean hasPermission(
-      Authentication authentication, Serializable targetId, String targetType, Object permission) {
     return hasPrivilege(authentication, targetType, permission);
   }
 
