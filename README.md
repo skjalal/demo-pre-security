@@ -1,1 +1,1 @@
-# Spring Security Pre-Authorization
+# Spring Security Pre-Auhtorization
